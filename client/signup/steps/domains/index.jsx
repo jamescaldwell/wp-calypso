@@ -42,8 +42,6 @@ import { getAvailableProductsList } from 'state/products-list/selectors';
 import { getSuggestionsVendor } from 'lib/domains/suggestions';
 import { getSite } from 'state/sites/selectors';
 import { getSiteVerticalId } from 'state/signup/steps/site-vertical/selectors';
-import { getSiteType } from 'state/signup/steps/site-type/selectors';
-
 
 /**
  * Style dependencies
@@ -66,7 +64,6 @@ class DomainsStep extends React.Component {
 		stepName: PropTypes.string.isRequired,
 		stepSectionName: PropTypes.string,
 		selectedSite: PropTypes.object,
-		siteType: PropTypes.number,
 		verticalId: PropTypes.string,
 	};
 
@@ -419,7 +416,6 @@ class DomainsStep extends React.Component {
 				deemphasiseTlds={ this.props.flowName === 'ecommerce' ? [ 'blog' ] : [] }
 				selectedSite={ this.props.selectedSite }
 				showSkipButton={ this.props.showSkipButton }
-				siteType={ this.props.siteType }
 				verticalId={ this.props.verticalId }
 				onSkip={ this.handleSkip }
 			/>
@@ -659,9 +655,7 @@ export default connect(
 	( state, ownProps ) => {
 		const productsList = getAvailableProductsList( state );
 		const productsLoaded = ! isEmpty( productsList );
-		const siteType = getSiteType( state );
-		const verticalId = getSiteVerticalId( state );
-console.log( 'siteType verticalId', siteType, verticalId );
+
 		return {
 			designType: getDesignType( state ),
 			// no user = DOMAINS_WITH_PLANS_ONLY
@@ -671,8 +665,7 @@ console.log( 'siteType verticalId', siteType, verticalId );
 			productsList,
 			productsLoaded,
 			siteGoals: getSiteGoals( state ),
-			siteType,
-			verticalId,
+			verticalId: getSiteVerticalId( state ),
 			surveyVertical: getSurveyVertical( state ),
 			selectedSite: getSite( state, ownProps.signupDependencies.siteSlug ),
 		};
