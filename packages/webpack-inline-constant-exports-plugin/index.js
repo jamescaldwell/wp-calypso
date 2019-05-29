@@ -125,7 +125,7 @@ class InlineConstantExportsPlugin {
 							 *
 							 * We track these dependencies per-module because if all the imported bindings
 							 * turn out to be constants and we inline them, we'll remove the import completely.
-							 * That means that we treat constant modules as side-effect fee, i.e., we can safely
+							 * That means that we treat constant modules as side-effect free, i.e., we can safely
 							 * remove the import.
 							 */
 							if ( dep instanceof HarmonyImportSideEffectDependency ) {
